@@ -8,20 +8,23 @@ RUN apt-get -y install libxslt-dev libxml2-dev
 RUN apt-get -y install build-essential libssl-dev libffi-dev python3-dev
 RUN apt-get -y install zlib1g-dev
 RUN apt-get remove python3-virtualenv
+RUN bash -c "curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_UNINSTALL=1 python3 -"
 RUN bash -c "curl -sSL https://install.python-poetry.org | python3 -"
 
-ENV PATH=$PATH:/root/.local/bin \
+ENV PATH=/root/.local/bin:$PATH \
   DEB_BUILD_ARCH=armhf \
   DEB_BUILD_ARCH_BITS=32 \
   PIP_DEFAULT_TIMEOUT=600 \
   PIP_TIMEOUT=600 \
   PIP_RETRIES=100
 
+RUN python3 /root/.local/bin/poetry --version
+
 RUN mkdir /build
 COPY . /build/
 
 WORKDIR /build
-RUN ls -laR /root/.local/bin/
+
 RUN python3 /root/.local/bin/poetry build
 
 WORKDIR /build/dist
