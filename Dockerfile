@@ -9,7 +9,7 @@ RUN apt-get -y install build-essential libssl-dev libffi-dev python3-dev
 RUN apt-get -y install zlib1g-dev
 RUN bash -c "curl -sSL https://install.python-poetry.org | python3 -"
 
-ENV PATH=$PATH:/root/.poetry/bin \
+ENV PATH=$PATH:/root/.local/bin \
   DEB_BUILD_ARCH=armhf \
   DEB_BUILD_ARCH_BITS=32 \
   PIP_DEFAULT_TIMEOUT=600 \
