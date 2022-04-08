@@ -18,7 +18,7 @@ ENV PATH=/root/.local/bin:$PATH \
   PIP_TIMEOUT=600 \
   PIP_RETRIES=100
 
-RUN python3 /root/.local/bin/poetry --version
+RUN python3 poetry --version
 
 RUN mkdir /build
 COPY . /build/
