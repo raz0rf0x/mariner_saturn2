@@ -7,6 +7,7 @@ RUN apt-get -y install sudo dpkg-dev debhelper dh-virtualenv \
 RUN apt-get -y install libxslt-dev libxml2-dev
 RUN apt-get -y install build-essential libssl-dev libffi-dev python3-dev
 RUN apt-get -y install zlib1g-dev
+RUN apt-get -Y remove python3-virtualenv
 RUN bash -c "curl -sSL https://install.python-poetry.org | python3 -"
 
 ENV PATH=$PATH:/root/.local/bin \
