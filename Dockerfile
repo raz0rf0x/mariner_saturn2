@@ -20,8 +20,8 @@ RUN mkdir /build
 COPY . /build/
 
 WORKDIR /build
-RUN ls /root/.local/bin/
-RUN python3 /root/.local/bin/poetry/poetry build
+RUN ls -laR /root/.local/bin/
+RUN python3 /root/.local/bin/poetry build
 
 WORKDIR /build/dist
 RUN dpkg-buildpackage -us -uc
