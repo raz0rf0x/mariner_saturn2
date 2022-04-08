@@ -6,7 +6,9 @@ from mariner.file_formats.ctb import CTBFile
 from mariner.file_formats.cbddlp import CBDDLPFile
 from mariner.file_formats.fdg import FDGFile
 from mariner.file_formats.photon import PhotonFile
-
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 EXTENSION_TO_FILE_FORMAT: Mapping[str, Type[SlicedModelFile]] = {
     ".ctb": CTBFile,
@@ -22,6 +24,7 @@ def get_file_extension(filename: str) -> str:
 
 
 def get_file_format(filename: str) -> Type[SlicedModelFile]:
+    logger.debug(f"Filename is {filename}")
     file_format = EXTENSION_TO_FILE_FORMAT.get(get_file_extension(filename))
 
     assert file_format is not None

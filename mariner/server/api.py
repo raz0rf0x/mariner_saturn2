@@ -25,6 +25,9 @@ from mariner.server.utils import (
     retry,
 )
 
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 api = Blueprint("api", __name__, url_prefix="/api")
 
@@ -47,25 +50,26 @@ def handle_mariner_exception(exception: MarinerException) -> Tuple[str, int]:
 @api.route("/print_status", methods=["GET"])
 def print_status() -> str:
     with ChiTuPrinter() as printer:
-        # the printer sends periodic "ok" responses over serial. this means that
-        # sometimes we get an unexpected response from the printer (an "ok" instead of
-        # the print status we expected). due to this, we retry at most 3 times here
-        # until we have a successful response. see issue #180
-        selected_file = retry(
-            printer.get_selected_file,
-            UnexpectedPrinterResponse,
-            num_retries=3,
-        )
+
+        # The print status is requested first to that we know the
+        # total byte count.
+        # The total count might be needed to guess at a filename
         print_status = retry(
             printer.get_print_status,
             UnexpectedPrinterResponse,
-            num_retries=3,
+            num_retries=1,
+        )
+        selected_file = retry(
+            printer.get_selected_file,
+            UnexpectedPrinterResponse,
+            num_retries=1,
         )
 
         if print_status.state == PrinterState.IDLE:
             progress = 0.0
             print_details = {}
         else:
+            logger.debug(f"api.py Selected file is {selected_file}")
             sliced_model_file = read_cached_sliced_model_file(
                 config.get_files_directory() / selected_file
             )
@@ -171,6 +175,9 @@ def file_details() -> str:
     path = (config.get_files_directory() / filename).resolve()
     if config.get_files_directory() not in path.parents:
         abort(400)
+    if not os.path.isfile(path):
+        abort(400)
+
     sliced_model_file = read_cached_sliced_model_file(path)
     return jsonify(
         {
@@ -219,6 +226,8 @@ def file_preview() -> Response:
     path = (config.get_files_directory() / filename).resolve()
     if config.get_files_directory() not in path.parents:
         abort(400)
+    if not os.path.isfile(path):
+        abort(400)
 
     preview_bytes = read_cached_preview(path)
 
@@ -246,6 +255,7 @@ def printer_command(command: str) -> str:
         if printer_command == PrinterCommand.START_PRINT:
             # TODO: validate filename before sending it to the printer
             filename = str(request.args.get("filename"))
+            printer.reset_line_number()
             printer.start_printing(filename)
         elif printer_command == PrinterCommand.PAUSE_PRINT:
             printer.pause_printing()
@@ -254,5 +264,6 @@ def printer_command(command: str) -> str:
         elif printer_command == PrinterCommand.CANCEL_PRINT:
             printer.stop_printing()
         elif printer_command == PrinterCommand.REBOOT:
+            printer.reset_line_number()
             printer.reboot()
         return jsonify({"success": True})
