@@ -1,10 +1,18 @@
-🛰️ mariner
-==========
+**If you are not running Firmware 4.4.3, then DO NOT install Mariner from this fork.  It is unlikely to
+work.**
+Check-out releases on this project for a deb file which can be installed if you're running 4.4.3.
+
+🛰️ mariner (BlueFinBima Fork)
+==============================
 
 |CI| |docs| |codecov| |Python| |MIT license|
 
 Web interface for controlling MSLA 3D Printers based on ChiTu controllers
-remotely.
+remotely.  This fork is to allow Mariner to work with Firmware 4.4.3 which had to be installed
+in order to allow ChitBox 1.9 sliced files to be printed.  It was found that Mariner did not
+work with this Firmware level because a number of the commands stopped working.
+
+The issue with 4.4.3 was raised as https://github.com/luizribeiro/mariner/issues/453
 
 |Screenshot|
 
