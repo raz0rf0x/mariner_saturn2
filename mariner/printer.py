@@ -23,6 +23,7 @@ class PrinterState(Enum):
     STARTING_PRINT = "STARTING_PRINT"
     PRINTING = "PRINTING"
     PAUSED = "PAUSED"
+    CLOSED = "CLOSED"
 
 
 @dataclass(frozen=True)
@@ -46,6 +47,8 @@ class ChiTuPrinter:
     _totalbyteCount = 0
     # the line number of the next response we'll receive
     _lineCount = 1
+    # Track serial / printer connection status to allow disconnects
+    _is_connected = False
 
     def __init__(self) -> None:
         self._serial_port = serial.Serial(
@@ -61,14 +64,20 @@ class ChiTuPrinter:
         return match
 
     def open(self) -> None:
-        self._serial_port.port = config.get_printer_serial_port()
-        self._serial_port.open()
-        logger.debug("Debug Level Logging Started for Chitu Printer")
-        self._lineCount = 1
-        self.reset_line_number()
+        try:
+            self._serial_port.port = config.get_printer_serial_port()
+            self._serial_port.open()
+            logger.debug("Debug Level Logging Started for Chitu Printer")
+            self._lineCount = 1
+            self.reset_line_number()
+            self._is_connected = True
+        except:
+            self._is_connected = False
 
     def close(self) -> None:
-        self._serial_port.close()
+        if self._is_connected:
+            self._serial_port.close()
+        
 
     def __enter__(self) -> "ChiTuPrinter":
         self.open()
@@ -95,56 +104,61 @@ class ChiTuPrinter:
 
     def get_print_status(self) -> PrintStatus:
         logger.debug("Obtain Print Status Command Requested")
-        if not self._exclude4000:
-            data = self._send_and_read(b"M4000")
-            if data == "ok":
-                # The response has been parsed and an ok with the correct line
-                # number has been received This means that the it is likely to
-                # be Firmware 4.4.3 which does not support M4000
-                self._exclude4000 = True
-                logger.debug(
-                    "Disabling M400n commands because it seems" +
-                    " printer does not support them.")
-            else:
-                match = self._extract_response_with_regex(
-                    "D:([0-9]+)/([0-9]+)/([0-9]+)", data)
-
-                current_byte = int(match.group(1))
-                total_bytes = int(match.group(2))
-                is_paused = match.group(3) == "1"
-
-        if self._exclude4000:
-            data = self._send_and_read(b"M27")
-            logger.debug(f"M27 response = {data}")
-            if "not printing now!" not in data:
-                match = self._extract_response_with_regex(
-                        "byte ([0-9]+)/([0-9]+)", data)
-                current_byte = int(match.group(1))
-                total_bytes = int(match.group(2))
-                self._totalbyteCount = total_bytes
-                # can't tell from M27 if the printer is paused so we use our own copy of
-                # the status. This will obviously be a problem if Mariner is started up
-                # and the printer is already paused.
-                if self._printer_Status.state == PrinterState.PAUSED:
-                    is_paused = True
+        current_byte = 0
+        total_bytes = 0
+        if self._is_connected:
+            if not self._exclude4000:
+                data = self._send_and_read(b"M4000")
+                if data == "ok":
+                    # The response has been parsed and an ok with the correct line
+                    # number has been received This means that the it is likely to
+                    # be Firmware 4.4.3 which does not support M4000
+                    self._exclude4000 = True
+                    logger.debug(
+                        "Disabling M400n commands because it seems" +
+                        " printer does not support them.")
                 else:
-                    is_paused = False
+                    match = self._extract_response_with_regex(
+                        "D:([0-9]+)/([0-9]+)/([0-9]+)", data)
+
+                    current_byte = int(match.group(1))
+                    total_bytes = int(match.group(2))
+                    is_paused = match.group(3) == "1"
+
+            if self._exclude4000:
+                data = self._send_and_read(b"M27")
+                logger.debug(f"M27 response = {data}")
+                if "not printing now!" not in data:
+                    match = self._extract_response_with_regex(
+                            "byte ([0-9]+)/([0-9]+)", data)
+                    current_byte = int(match.group(1))
+                    total_bytes = int(match.group(2))
+                    self._totalbyteCount = total_bytes
+                    # can't tell from M27 if the printer is paused so we use our own copy of
+                    # the status. This will obviously be a problem if Mariner is started up
+                    # and the printer is already paused.
+                    if self._printer_Status.state == PrinterState.PAUSED:
+                        is_paused = True
+                    else:
+                        is_paused = False
+                else:
+                    total_bytes = 0
+
+            if total_bytes == 0:
+                self._printer_Status = PrintStatus(state=PrinterState.IDLE)
+                return PrintStatus(state=PrinterState.IDLE)
+
+            if current_byte == 0:
+                self._printer_Status = PrintStatus(state=PrinterState.STARTING_PRINT)
+                state = PrinterState.STARTING_PRINT
+            elif is_paused:
+                self._printer_Status = PrintStatus(state=PrinterState.PAUSED)
+                state = PrinterState.PAUSED
             else:
-                total_bytes = 0
-
-        if total_bytes == 0:
-            self._printer_Status = PrintStatus(state=PrinterState.IDLE)
-            return PrintStatus(state=PrinterState.IDLE)
-
-        if current_byte == 0:
-            self._printer_Status = PrintStatus(state=PrinterState.STARTING_PRINT)
-            state = PrinterState.STARTING_PRINT
-        elif is_paused:
-            self._printer_Status = PrintStatus(state=PrinterState.PAUSED)
-            state = PrinterState.PAUSED
+                self._printer_Status = PrintStatus(state=PrinterState.PRINTING)
+                state = PrinterState.PRINTING
         else:
-            self._printer_Status = PrintStatus(state=PrinterState.PRINTING)
-            state = PrinterState.PRINTING
+            state = PrinterState.CLOSED
 
         return PrintStatus(
             state=state,
@@ -164,6 +178,9 @@ class ChiTuPrinter:
         self._send_and_read(b"M110 N0")
 
     def get_selected_file(self) -> str:
+        if not self._is_connected:
+            return ""
+
         if not self._exclude4000:
             logger.debug("Obtain the Selected File Command Requested")
             data = self._send_and_read(b"M4006")

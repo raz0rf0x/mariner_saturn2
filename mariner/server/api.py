@@ -50,7 +50,7 @@ def handle_mariner_exception(exception: MarinerException) -> Tuple[str, int]:
 @api.route("/print_status", methods=["GET"])
 def print_status() -> str:
     with ChiTuPrinter() as printer:
-
+        
         # The print status is requested first to that we know the
         # total byte count.
         # The total count might be needed to guess at a filename
@@ -65,7 +65,7 @@ def print_status() -> str:
             num_retries=1,
         )
 
-        if print_status.state == PrinterState.IDLE:
+        if print_status.state == PrinterState.IDLE or print_status.state == PrinterState.CLOSED:
             progress = 0.0
             print_details = {}
         else:

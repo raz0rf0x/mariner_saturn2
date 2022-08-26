@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import { withAPI, WithAPIProps } from "../api";
 import { getPrinterDisplayName, renderTime, sleep } from "../utils";
 
-const styles = () =>
+const styles = () => 
   createStyles({
     playButton: {
       padding: 6,
@@ -42,14 +42,15 @@ const styles = () =>
     },
   });
 
-type PrinterState = "IDLE" | "STARTING_PRINT" | "PRINTING" | "PAUSED";
+type PrinterState = "IDLE" | "STARTING_PRINT" | "PRINTING" | "PAUSED" | "CLOSED";
 
 function toPrinterState(state: string): PrinterState {
   if (
     state !== "IDLE" &&
     state !== "STARTING_PRINT" &&
     state !== "PRINTING" &&
-    state !== "PAUSED"
+    state !== "PAUSED" &&
+    state !== "CLOSED"
   ) {
     throw Error("Unknown printer state " + state);
   }
@@ -196,7 +197,7 @@ class PrintStatus extends React.Component<
       timeLeftSecs,
     } = nullthrows(this.state.data);
 
-    if (state === "IDLE") {
+    if (state === "IDLE" || state == "CLOSED") {
       return (
         <Box>
           <Typography variant="h5" gutterBottom>
