@@ -28,4 +28,4 @@ WORKDIR /build
 RUN /root/.local/bin/poetry build
 
 # WORKDIR /build/dist
-# RUN dpkg-buildpackage -us -uc
+RUN dpkg-buildpackage -us -uc
