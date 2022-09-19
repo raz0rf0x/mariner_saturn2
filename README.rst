@@ -1,5 +1,8 @@
 **If you are not running Firmware 4.4.3, then DO NOT install Mariner from this fork.  It is unlikely to
 work.**
+
+merged changes from both https://github.com/Desterly/mariner (encryption) and https://github.com/BlueFinBima/mariner (main work)
+
 Check-out releases on this project for a deb file which can be installed if you're running 4.4.3.
 
 🛰️ mariner (BlueFinBima Fork)
