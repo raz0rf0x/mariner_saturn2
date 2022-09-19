@@ -1,3 +1,10 @@
+mariner3d (0.2.0-2) unstable; urgency=low
+
+  * Merged https://github.com/Desterly/mariner and 
+    https://github.com/BlueFinBima/mariner and packaged
+
+ -- rob al (github.com/mnbf9rca)  Mon, 19 Sept 2022 22:58:05 +0000
+
 mariner3d (0.2.0-1) unstable; urgency=low
 
   * Added support for more printers (see README.md)

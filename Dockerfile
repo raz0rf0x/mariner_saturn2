@@ -27,5 +27,5 @@ WORKDIR /build
 # RUN ls -alR /root/.local/bin/
 RUN /root/.local/bin/poetry build
 
-# WORKDIR /build/dist
+WORKDIR /build/dist
 RUN dpkg-buildpackage -us -uc
