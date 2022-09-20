@@ -747,7 +747,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "waitress"
-version = "2.1.1"
+version = "2.1.2"
 description = "Waitress WSGI server"
 category = "main"
 optional = false
