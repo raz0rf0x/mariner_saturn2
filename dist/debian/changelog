@@ -3,7 +3,7 @@ mariner3d (0.2.0-2) unstable; urgency=low
   * Merged https://github.com/Desterly/mariner and 
     https://github.com/BlueFinBima/mariner and packaged
 
- -- rob al <me@xra.co>  Mon, 19 Sept 2022 22:58:05 +0000
+ -- rob al <me@xra.co>  Mon, 19 Sep 2022 22:58:05 +0000
 
 mariner3d (0.2.0-1) unstable; urgency=low
 
