@@ -29,7 +29,7 @@ numpy = "^1.23.2"
 
 [tool.poetry.dev-dependencies]
 black = "22.3.0"
-flake8 = "4.0.1"
+flake8 = "5.0.4"
 freezegun = "1.2.1"
 green = "3.4.1"
 pyexpect = "1.0.21"
