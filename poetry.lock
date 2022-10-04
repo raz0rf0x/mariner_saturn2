@@ -514,7 +514,7 @@ diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
 name = "pypng"
-version = "0.0.21"
+version = "0.20220715.0"
 description = "Pure Python library for saving and loading PNG images"
 category = "main"
 optional = false
@@ -819,7 +819,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "6adea58e109f5ff002b5695b33e8274dde2da5d8abe3bdc39d84f4445f2fbe0a"
+content-hash = "0f2ce59df96c6d789d82f0dbd69bce407670c27e765b4be07b9f8c0b232f91f3"
 
 [metadata.files]
 astroid = [
@@ -1309,7 +1309,8 @@ pyparsing = [
     {file = "pyparsing-3.0.9.tar.gz", hash = "sha256:2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"},
 ]
 pypng = [
-    {file = "pypng-0.0.21-py3-none-any.whl", hash = "sha256:76f8a1539ec56451da7ab7121f12a361969fe0f2d48d703d198ce2a99d6c5afd"},
+    {file = "pypng-0.20220715.0-py3-none-any.whl", hash = "sha256:4a43e969b8f5aaafb2a415536c1a8ec7e341cd6a3f957fd5b5f32a4cfeed902c"},
+    {file = "pypng-0.20220715.0.tar.gz", hash = "sha256:739c433ba96f078315de54c0db975aee537cbc3e1d0ae4ed9aab0ca1e427e2c1"},
 ]
 pyre-check = [
     {file = "pyre-check-0.9.16.tar.gz", hash = "sha256:d49a5e453f386a454fbceddfef1c674515ae8de1a1461a9d6a3f5848a34c1028"},
