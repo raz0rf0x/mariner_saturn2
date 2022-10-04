@@ -1,11 +1,36 @@
 **If you are not running Firmware 4.4.3, then DO NOT install Mariner from this fork.  It is unlikely to
 work.**
 
-merged changes from both https://github.com/Desterly/mariner (encryption) and https://github.com/BlueFinBima/mariner (main work)
+mnbf9rca: merged changes from both https://github.com/Desterly/mariner (encryption) and https://github.com/BlueFinBima/mariner (main work)
+
+Installation
+------------
+
+Requires Python 3.x. Install as follows:
+- libatlas-base-dev (for libcblas.so.3) - install with `sudo apt-get install -y libatlas-base-dev`
+(from https://l9o.dev/posts/controlling-an-elegoo-mars-pro-remotely/)
+- modify `/boot/config.txt` to add `dtoverlay=dwc2` to the end of the file
+- enable the `dwc2` module by adding `modules-load=dwc2` to `/boot/cmdline.txt` just after `rootawait`
+- create a file to store uploaded files. This creates a 2GB file and creates a file system on it - it can take quite some time to create the file. We then create a mountpoint.`:
+```bash
+sudo dd bs=1M if=/dev/zero of=/piusb.bin count=2048
+sudo mkdosfs /piusb.bin -F 32 -I
+sudo mkdir -p /mnt/usb_share
+```
+- add the following to `/etc/fstab`:
+```
+/piusb.bin /mnt/usb_share vfat users,gid=mariner,umask=002 0 2
+```
+- its important to check that the share mounts or it'll block boot: `sudo mount -a`
+- update `/etc/rc.local` to load the `g_mass_storage` module on boot by adding the line `modprobe g_mass_storage file=/piusb.bin stall=0 ro=1` before `exit 0`. This command does that, or you can do it manually:
+```bash
+sudo sed -i 's/exit 0/modprobe g_mass_storage file=\/piusb.bin stall=0 removable=1 ro=0;\nexit 0/' /etc/rc.local
+```
+
 
 Check-out releases on this project for a deb file which can be installed if you're running 4.4.3.
 
-🛰️ mariner (BlueFinBima Fork)
+🛰️ mariner (mnbf9rca fork of BlueFinBima Fork)
 ==============================
 
 |CI| |docs| |codecov| |Python| |MIT license|
