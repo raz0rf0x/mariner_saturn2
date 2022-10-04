@@ -1,7 +1,11 @@
-import os
+import os, io
 import traceback
 from enum import Enum
 from typing import Any, Dict, Optional, Tuple
+
+from picamera2 import Picamera2
+from picamera2.encoders import JpegEncoder
+from picamera2.outputs import FileOutput
 
 from flask import (
     Blueprint,
@@ -31,6 +35,8 @@ logger.setLevel(logging.INFO)
 
 api = Blueprint("api", __name__, url_prefix="/api")
 
+picam2 = Picamera2()
+picam2.configure(picam2.create_video_configuration())
 
 @api.errorhandler(MarinerException)
 def handle_mariner_exception(exception: MarinerException) -> Tuple[str, int]:
@@ -267,3 +273,18 @@ def printer_command(command: str) -> str:
             printer.reset_line_number()
             printer.reboot()
         return jsonify({"success": True})
+
+def stream_video():
+    data = io.BytesIO()
+    picam2.capture_file(data, format='jpeg')
+    yield (b'--frame\r\n'
+           b'Content-Type: image/jpeg\r\n\r\n' + data + b'\r\n')  # concat frame one by one and show result
+
+
+
+@api.route("/video", methods=["GET"])
+def video() -> Response:
+    return Response(
+        stream_video(),
+        mimetype="multipart/x-mixed-replace; boundary=frame",
+    )
