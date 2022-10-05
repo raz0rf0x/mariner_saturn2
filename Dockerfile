@@ -8,6 +8,7 @@ RUN apt-get -y install libxslt-dev libxml2-dev
 RUN apt-get -y install build-essential libssl-dev libffi-dev python3-dev
 # for picamera3
 RUN apt-get -y install libpcap-dev python3-libcamera libatlas-base-dev
+RUN python3 -m pip install --upgrade pip
 RUN apt-get -y install zlib1g-dev
 RUN apt-get update
 RUN apt-get -y install liblapack3 libatlas-base-dev
