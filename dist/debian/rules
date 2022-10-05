@@ -14,5 +14,5 @@ override_dh_virtualenv:
 	tar xvzf "mariner-$(DEB_UPSTREAM_VERSION).tar.gz"
 	dh_virtualenv \
 		--python python3 \
-		--sourcedirectory="mariner-$(DEB_UPSTREAM_VERSION)"
+		--sourcedirectory="mariner-$(DEB_UPSTREAM_VERSION)" \
 		--use-system-packages 
