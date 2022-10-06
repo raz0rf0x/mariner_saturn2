@@ -3,10 +3,6 @@ import traceback
 from enum import Enum
 from typing import Any, Dict, Optional, Tuple
 
-from picamera2 import Picamera2
-from picamera2.encoders import JpegEncoder
-from picamera2.outputs import FileOutput
-
 from flask import (
     Blueprint,
     Response,
@@ -35,9 +31,6 @@ logger.setLevel(logging.INFO)
 
 api = Blueprint("api", __name__, url_prefix="/api")
 
-picam2 = Picamera2()
-picam2.configure(picam2.create_video_configuration())
-
 @api.errorhandler(MarinerException)
 def handle_mariner_exception(exception: MarinerException) -> Tuple[str, int]:
     tb = traceback.TracebackException.from_exception(exception)
@@ -55,8 +48,8 @@ def handle_mariner_exception(exception: MarinerException) -> Tuple[str, int]:
 
 @api.route("/print_status", methods=["GET"])
 def print_status() -> str:
+    logger.log("print_status")
     with ChiTuPrinter() as printer:
-        
         # The print status is requested first to that we know the
         # total byte count.
         # The total count might be needed to guess at a filename
@@ -274,17 +267,7 @@ def printer_command(command: str) -> str:
             printer.reboot()
         return jsonify({"success": True})
 
-def stream_video():
-    data = io.BytesIO()
-    picam2.capture_file(data, format='jpeg')
-    yield (b'--frame\r\n'
-           b'Content-Type: image/jpeg\r\n\r\n' + data + b'\r\n')  # concat frame one by one and show result
-
-
-
 @api.route("/video", methods=["GET"])
-def video() -> Response:
-    return Response(
-        stream_video(),
-        mimetype="multipart/x-mixed-replace; boundary=frame",
-    )
+def video() -> str:
+    
+    return "Video coming soon"
