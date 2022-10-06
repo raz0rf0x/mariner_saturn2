@@ -5,7 +5,8 @@ RUN apt-get -y install sudo dpkg-dev debhelper dh-virtualenv \
   python3 python3-venv
 
 
-RUN apt-get -y install libpcap-dev libcap-dev python3-libcamera libxslt-dev libxml2-dev build-essential libssl-dev libffi-dev python3-dev  zlib1g-dev liblapack3 libatlas-base-dev
+RUN apt-get -y install libwebp-dev libjpeg62-turbo liblcms2-2 libopenjp2-7 libtiff5 libxcb1 libfreetype6 libpcap-dev libcap-dev python3-libcamera libxslt-dev libxml2-dev build-essential libssl-dev libffi-dev python3-dev  zlib1g-dev liblapack3 libatlas-base-dev
+
 
 # RUN bash -c "curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_UNINSTALL=1 python3 -"
 RUN bash -c "curl -sSL https://install.python-poetry.org | python3 -"
