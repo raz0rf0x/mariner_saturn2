@@ -4,11 +4,13 @@
 # Run this script, then point a web browser at http:<this-ip-address>:8000
 # Note: needs simplejpeg to be installed (pip3 install simplejpeg).
 ###
+# none of this is necssary in my latest tests - let's see!
 # source /opt/venvs/mariner3d/bin/activate
 # sudo apt-get install -y libpcap-dev python3-libcamera
 # upgrade pip to v22
 # sudo python3 -m pip install --upgrade pip
 # pip install picamera2
+# rsync -Oravuzhc mariner/* pi@192.168.17.165:/opt/venvs/mariner3d/lib/python3.9/site-packages/mariner       
 ###
 
 import io
@@ -28,7 +30,7 @@ PAGE = """\
 </head>
 <body>
 <h1>Picamera2 MJPEG Streaming Demo</h1>
-<img src="stream.mjpg" width="640" height="480" />
+<img src="stream.mjpg" />
 </body>
 </html>
 """

@@ -1,0 +1,42 @@
+#!/bin/sh
+
+set -e
+set -x
+
+removeuser() {
+  USER="mariner"
+
+  if ! id -u "$USER" >/dev/null ; then
+    deluser \
+      --quiet \
+      --system \
+      --group \
+      --remove-all-files \
+      "$USER"
+  fi
+
+}
+
+
+case "$1" in
+    remove)
+        removeuser
+    ;;
+
+    purge)
+        removeuser
+    ;;
+
+    upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+    ;;
+
+    *)
+        echo "postrm called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+
+#DEBHELPER#
+
+exit 0
