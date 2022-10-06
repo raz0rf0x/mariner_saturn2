@@ -14,11 +14,13 @@ configure() {
       --disabled-login \
       --disabled-password \
       --no-create-home \
-      --gecos "mariner3d daemon" \
+      --gecos "mariner3d daemon video" \
       "$USER"
   fi
 
   adduser "$USER" dialout
+
+  adduser "$USER" video
 }
 
 case "$1" in
