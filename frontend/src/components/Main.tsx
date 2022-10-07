@@ -22,6 +22,9 @@ import { Link, Route, Routes } from "react-router-dom";
 import theme from "../theme";
 import FileList from "./FileList";
 import PrintStatus from "./PrintStatus";
+import Image from "material-ui-image";
+import { clearConfigCache } from "prettier";
+
 
 const drawerWidth = 240;
 
@@ -112,6 +115,8 @@ function Main({ width }: WithWidth): React.ReactElement {
     }
   };
 
+  const video_url = new URL("/stream.mjpg",  window.location.protocol + '/' + window.location.hostname + ':' + (window.location.port + 1) )
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -189,6 +194,7 @@ function Main({ width }: WithWidth): React.ReactElement {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="sm" className={classes.container}>
+          <Image src={video_url} />
             <Routes>
               <Route path="/" element={<PrintStatus />} />
               <Route path="/files" element={<FileList />} />
