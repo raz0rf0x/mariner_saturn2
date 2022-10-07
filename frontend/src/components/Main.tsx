@@ -114,8 +114,8 @@ function Main({ width }: WithWidth): React.ReactElement {
       setOpen(false);
     }
   };
-
-  const video_url = new URL("/stream.mjpg",  window.location.protocol + '/' + window.location.hostname + ':' + (window.location.port + 1) )
+  const port = window.location.port ? `:${parseInt(window.location.port)+1}` : "";
+  const video_url = new URL("/stream.mjpg",  window.location.protocol + '//' + window.location.hostname + port )
 
   return (
     <div className={classes.root}>
