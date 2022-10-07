@@ -19,6 +19,9 @@ import socketserver
 from http import server
 from threading import Condition, Thread
 
+from mariner import config
+
+
 from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
@@ -98,7 +101,7 @@ output = StreamingOutput()
 picam2.start_recording(JpegEncoder(), FileOutput(output))
 
 try:
-    address = ('', 8000)
+    address = ('', config.get_video_port())
     server = StreamingServer(address, StreamingHandler)
     server.serve_forever()
 finally:

@@ -6,7 +6,7 @@ set -x
 removeuser() {
   USER="mariner"
 
-  if ! id -u "$USER" >/dev/null ; then
+  if id -u "$USER" >/dev/null ; then
     deluser \
       --quiet \
       --system \
@@ -14,6 +14,9 @@ removeuser() {
       --remove-all-files \
       "$USER"
   fi
+  deluser "$USER" dialout
+
+  deluser "$USER" video
 
 }
 
