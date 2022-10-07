@@ -86,7 +86,7 @@ def get_video_port() -> int:
     #return int(http_config.get("video_port", default_port))
     return default_port
 
-def enable_Video() -> int:
+def get_video_enabled() -> int:
     # is video enabled?
     default_enable = True
     video_config = _get_config().get("video")

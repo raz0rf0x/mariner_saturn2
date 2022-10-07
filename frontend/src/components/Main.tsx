@@ -114,8 +114,8 @@ function Main({ width }: WithWidth): React.ReactElement {
       setOpen(false);
     }
   };
-  const port = window.location.port ? `:${parseInt(window.location.port)+1}` : "";
-  const video_url = new URL("/stream.mjpg",  window.location.protocol + '//' + window.location.hostname + port ).toString()
+  const port = window.location.port ? `:${parseInt(window.location.port) + 1}` : "";
+  const video_url = new URL("/stream.mjpg", window.location.protocol + '//' + window.location.hostname + port).toString()
   const [video_enabled, setVideoEnabled] = React.useState(false)
 
   React.useEffect(() => {
@@ -140,11 +140,12 @@ function Main({ width }: WithWidth): React.ReactElement {
     if (video_enabled) {
       return <Image src={video_url} />
     }
-    return <></>}
+    return <></>
+  }
 
-    // fetch /api/video
-    // parse response
-    // return true if enabled
+  // fetch /api/video
+  // parse response
+  // return true if enabled
 
 
 
@@ -225,7 +226,7 @@ function Main({ width }: WithWidth): React.ReactElement {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="sm" className={classes.container}>
-          {VideoImage()}
+            {VideoImage()}
             <Routes>
               <Route path="/" element={<PrintStatus />} />
               <Route path="/files" element={<FileList />} />

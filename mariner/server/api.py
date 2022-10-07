@@ -48,7 +48,6 @@ def handle_mariner_exception(exception: MarinerException) -> Tuple[str, int]:
 
 @api.route("/print_status", methods=["GET"])
 def print_status() -> str:
-    logger.log("print_status")
     with ChiTuPrinter() as printer:
         # The print status is requested first to that we know the
         # total byte count.

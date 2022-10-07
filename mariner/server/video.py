@@ -94,9 +94,9 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
     daemon_threads = True
 
-if config.enable_Video():
+if config.get_video_enabled():
     picam2 = Picamera2()
-    picam2.configure(picam2.create_video_configuration())
+    picam2.configure(picam2.create_video_configuration(main={"size": (1280, 1280)}))
     output = StreamingOutput()
     picam2.start_recording(JpegEncoder(), FileOutput(output))
 
