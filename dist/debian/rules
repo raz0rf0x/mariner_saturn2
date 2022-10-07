@@ -4,7 +4,7 @@
 include /usr/share/dpkg/architecture.mk
 
 %:
-	dh $@ --with python-virtualenv --with=systemd
+	dh $@ --with python-virtualenv,systemd 
 
 DEB_DEBIAN_DIR=$(dir $(firstword $(MAKEFILE_LIST)))
 DEB_UPSTREAM_VERSION=$(shell dpkg-parsechangelog -l$(DEB_DEBIAN_DIR)/changelog \
@@ -14,4 +14,17 @@ override_dh_virtualenv:
 	tar xvzf "mariner-$(DEB_UPSTREAM_VERSION).tar.gz"
 	dh_virtualenv \
 		--python python3 \
-		--sourcedirectory="mariner-$(DEB_UPSTREAM_VERSION)"
+		--sourcedirectory="mariner-$(DEB_UPSTREAM_VERSION)" \
+		--use-system-packages 
+
+override_dh_installsystemd:
+	dh_installinit --name=mariner3d
+	dh_installinit --name=marinervideo
+
+override_dh_systemd_enable:
+	dh_systemd_enable --name=mariner3d
+	dh_systemd_enable --name=marinervideo
+
+override_dh_systemd_start:
+	dh_systemd_start --name=mariner3d
+	dh_systemd_start --name=marinervideo

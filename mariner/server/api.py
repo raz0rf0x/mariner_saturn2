@@ -1,4 +1,4 @@
-import os
+import os, io
 import traceback
 from enum import Enum
 from typing import Any, Dict, Optional, Tuple
@@ -31,7 +31,6 @@ logger.setLevel(logging.INFO)
 
 api = Blueprint("api", __name__, url_prefix="/api")
 
-
 @api.errorhandler(MarinerException)
 def handle_mariner_exception(exception: MarinerException) -> Tuple[str, int]:
     tb = traceback.TracebackException.from_exception(exception)
@@ -50,7 +49,6 @@ def handle_mariner_exception(exception: MarinerException) -> Tuple[str, int]:
 @api.route("/print_status", methods=["GET"])
 def print_status() -> str:
     with ChiTuPrinter() as printer:
-        
         # The print status is requested first to that we know the
         # total byte count.
         # The total count might be needed to guess at a filename
@@ -267,3 +265,10 @@ def printer_command(command: str) -> str:
             printer.reset_line_number()
             printer.reboot()
         return jsonify({"success": True})
+
+@api.route("/video", methods=["GET"])
+def video() -> str:
+    video_config = {
+        "enabled": config.get_video_enabled()
+    }
+    return jsonify(video_config)
