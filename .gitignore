@@ -10,7 +10,10 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
+# include debian folder...
+!dist/
+dist/*
+!dist/debian/
 downloads/
 eggs/
 .eggs/
@@ -250,7 +253,7 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+# dist/*
 
 # Gatsby files
 .cache/
@@ -305,6 +308,24 @@ frontend/dist/
 frontend/node_modules/
 *.deb
 .direnv/
+
+# packaging
+debhelper-build-stamp
+.DS_Store
+.debhelper
+*.deb
+*.dsc
+*.build
+*.buildinfo
+*.changes
+*.tar.gz
+*.log
+*.substvars
+/.vagrant
+/*/debian/hello
+/*/debian/files
+/*/hello
+/tutorial-1/packageroot/usr
 
 dist/mariner-*
 dist/debian/.debhelper/
