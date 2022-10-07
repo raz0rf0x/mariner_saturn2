@@ -86,6 +86,14 @@ def get_video_port() -> int:
     #return int(http_config.get("video_port", default_port))
     return default_port
 
+def enable_Video() -> int:
+    # is video enabled?
+    default_enable = True
+    video_config = _get_config().get("video")
+    if not isinstance(video_config, dict):
+        return default_enable
+    return video_config.get("enable_video", default_enable)
+
 def get_cache_directory() -> str:
     default_directory = "/tmp/mariner/"
     cache_config = _get_config().get("cache")

@@ -269,5 +269,7 @@ def printer_command(command: str) -> str:
 
 @api.route("/video", methods=["GET"])
 def video() -> str:
-    
-    return "Video coming soon"
+    video_config = {
+        "enabled": config.get_video_enabled()
+    }
+    return jsonify(video_config)

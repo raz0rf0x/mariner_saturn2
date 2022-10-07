@@ -35,6 +35,10 @@ host = "0.0.0.0"
 # TCP port on which to listen
 port = 5000
 
+[video]
+# enable video server?
+enable_video = True
+
 [cache]
 # Directory in which cached information such as file metadata and thumbnails
 # will be stored
