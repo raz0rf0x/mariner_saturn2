@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import LinearProgress from "@mui/material/LinearProgress";
 import { WithStyles } from '@mui/styles';
 import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
+import { withStyles } from 'tss-react/mui';
 import Typography from "@mui/material/Typography";
 import CheckIcon from "@mui/icons-material/Check";
 import FolderIcon from "@mui/icons-material/Folder";
@@ -307,4 +307,4 @@ class PrintStatus extends React.Component<
   }
 }
 
-export default withStyles(styles)(withAPI(PrintStatus));
+export default withStyles(withAPI(PrintStatus), styles);

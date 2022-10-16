@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -93,7 +93,7 @@ class FileDetails extends React.Component<FileDetailsProps, FileDetailsState> {
   }
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   dialogTitle: {
     display: "flex",
     justifyContent: "space-between",
@@ -116,7 +116,7 @@ export default function FileDetailsDialog(
     onDelete: () => void;
   } & DialogProps
 ): React.ReactElement {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const [isDeleteConfirmationDialogOpen, setDeleteConfirmationDialogOpen] =
     React.useState(false);
   const handleDeleteDialogClose = () => setDeleteConfirmationDialogOpen(false);

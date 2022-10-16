@@ -9,7 +9,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { WithStyles } from '@mui/styles';
 import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
+import { withStyles } from 'tss-react/mui';
 import FolderIcon from "@mui/icons-material/Folder";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import LayersIcon from "@mui/icons-material/Layers";
@@ -217,4 +217,4 @@ class FileList extends React.Component<
   }
 }
 
-export default withStyles(styles)(withAPI(FileList));
+export default withStyles(withAPI(FileList), styles);

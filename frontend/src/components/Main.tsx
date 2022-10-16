@@ -8,7 +8,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { ThemeProvider, Theme, StyledEngineProvider } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui';
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -16,7 +16,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import FolderIcon from "@mui/icons-material/Folder";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
-import clsx from "clsx";
 import React from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import theme from "../theme";
@@ -48,7 +47,9 @@ declare module '@mui/styles/defaultTheme' {
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
+// TODO jss-to-tss-react codemod: Unable to handle style definition reliably. Unsupported arrow function syntax.
+//Unexpected value type of MemberExpression.
+const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",
   },
@@ -119,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Main({ width }: WithWidth): React.ReactElement {
-  const classes = useStyles();
+  const { classes, cx } = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -176,7 +177,7 @@ function Main({ width }: WithWidth): React.ReactElement {
         <ThemeProvider theme={theme}>
           <AppBar
             position="absolute"
-            className={clsx(classes.appBar, open && classes.appBarShift)}
+            className={cx(classes.appBar, open && classes.appBarShift)}
           >
             <Toolbar className={classes.toolbar}>
               <IconButton
@@ -184,7 +185,7 @@ function Main({ width }: WithWidth): React.ReactElement {
                 color="inherit"
                 aria-label="open drawer"
                 onClick={handleDrawerOpen}
-                className={clsx(
+                className={cx(
                   classes.menuButton,
                   open && classes.menuButtonHidden
                 )}
@@ -205,7 +206,7 @@ function Main({ width }: WithWidth): React.ReactElement {
           <SwipeableDrawer
             variant={drawerVariant}
             classes={{
-              paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+              paper: cx(classes.drawerPaper, !open && classes.drawerPaperClose),
             }}
             open={open}
             onOpen={handleDrawerOpen}
