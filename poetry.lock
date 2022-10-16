@@ -223,9 +223,9 @@ python-versions = ">=3.6.1,<4.0"
 
 [package.extras]
 colors = ["colorama (>=0.4.3,<0.5.0)"]
-pipfile_deprecated_finder = ["pipreqs", "requirementslib"]
+pipfile-deprecated-finder = ["pipreqs", "requirementslib"]
 plugins = ["setuptools"]
-requirements_deprecated_finder = ["pip-api", "pipreqs"]
+requirements-deprecated-finder = ["pip-api", "pipreqs"]
 
 [[package]]
 name = "itsdangerous"
@@ -504,7 +504,7 @@ python-versions = "*"
 
 [[package]]
 name = "pyfakefs"
-version = "4.7.0"
+version = "5.0.0"
 description = "pyfakefs implements a fake file system that mocks the Python file system modules."
 category = "dev"
 optional = false
@@ -851,7 +851,7 @@ watchdog = ["watchdog"]
 
 [[package]]
 name = "whitenoise"
-version = "6.0.0"
+version = "6.2.0"
 description = "Radically simplified static file serving for WSGI applications"
 category = "main"
 optional = false
@@ -897,7 +897,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "fef0a5eda11309af4202c833645a5851418970e0ba6e371de0913ecc3faedd77"
+content-hash = "01664c85b0705bace3e7f5944371bcb2f7542a32d930bbf677b1facaf97b8431"
 
 [metadata.files]
 astroid = [
@@ -1438,8 +1438,8 @@ pyexpect = [
     {file = "pyexpect-1.0.21.tar.gz", hash = "sha256:96e900d6af928a94c2a75b4935ddda44872c218121d0467c549ae19e7608a9a2"},
 ]
 pyfakefs = [
-    {file = "pyfakefs-4.7.0-py3-none-any.whl", hash = "sha256:29203a7482b25406dd3ea41c8740be2697c6058b0f6577485c3ae9cd4c5e96cd"},
-    {file = "pyfakefs-4.7.0.tar.gz", hash = "sha256:f22d30d93d2989bf2d2c67b606a14cbab2df0be912c09dcdb590ea4931073ade"},
+    {file = "pyfakefs-5.0.0-py3-none-any.whl", hash = "sha256:e1b01954978fe2d9a4d75f079359d7f8d3af3bb12ff2dc8633a4cc0a0dc7fbda"},
+    {file = "pyfakefs-5.0.0.tar.gz", hash = "sha256:19d1d8f1ee520891d78b6ed05c2078e0792d545f83dee33461fbaa5cc72e187d"},
 ]
 pyflakes = [
     {file = "pyflakes-2.5.0-py2.py3-none-any.whl", hash = "sha256:4579f67d887f804e67edb544428f264b7b24f435b263c4614f384135cea553d2"},
@@ -1714,8 +1714,8 @@ Werkzeug = [
     {file = "Werkzeug-2.2.2.tar.gz", hash = "sha256:7ea2d48322cc7c0f8b3a215ed73eabd7b5d75d0b50e31ab006286ccff9e00b8f"},
 ]
 whitenoise = [
-    {file = "whitenoise-6.0.0-py3-none-any.whl", hash = "sha256:5a4aff543ee860fbe40d743e556adf92ccd41b7df45697cae074afdf657056b9"},
-    {file = "whitenoise-6.0.0.tar.gz", hash = "sha256:08c42bc535f9777eea1a599289d9433f081921f97887eaf6f559446b2a080374"},
+    {file = "whitenoise-6.2.0-py3-none-any.whl", hash = "sha256:8e9c600a5c18bd17655ef668ad55b5edf6c24ce9bdca5bf607649ca4b1e8e2c2"},
+    {file = "whitenoise-6.2.0.tar.gz", hash = "sha256:8fa943c6d4cd9e27673b70c21a07b0aa120873901e099cd46cab40f7cc96d567"},
 ]
 wrapt = [
     {file = "wrapt-1.14.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:1b376b3f4896e7930f1f772ac4b064ac12598d1c38d04907e696cc4d794b43d3"},
