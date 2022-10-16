@@ -1,6 +1,6 @@
-import { createTheme } from "@material-ui/core/styles";
+import { createTheme, adaptV4Theme } from "@mui/material/styles";
 
-export default createTheme({
+export default createTheme(adaptV4Theme({
   palette: {
     primary: {
       main: "#b71c1c",
@@ -9,4 +9,4 @@ export default createTheme({
       main: "#b71c1c",
     },
   },
-});
+}));

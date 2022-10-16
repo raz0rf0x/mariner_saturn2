@@ -1,21 +1,21 @@
-import AppBar from "@material-ui/core/AppBar";
-import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import withWidth, { WithWidth } from "@material-ui/core/withWidth";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import FolderIcon from "@material-ui/icons/Folder";
-import HomeIcon from "@material-ui/icons/Home";
-import MenuIcon from "@material-ui/icons/Menu";
+import AppBar from "@mui/material/AppBar";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import { ThemeProvider, Theme, StyledEngineProvider } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import FolderIcon from "@mui/icons-material/Folder";
+import HomeIcon from "@mui/icons-material/Home";
+import MenuIcon from "@mui/icons-material/Menu";
 import clsx from "clsx";
 import React from "react";
 import { Link, Route, Routes } from "react-router-dom";
@@ -23,6 +23,18 @@ import theme from "../theme";
 import FileList from "./FileList";
 import PrintStatus from "./PrintStatus";
 import Image from "material-ui-image";
+
+
+// FIXME checkout https://mui.com/components/use-media-query/#migrating-from-withwidth
+const withWidth = () => (WrappedComponent) => (props) => <WrappedComponent {...props} width="xs" />;
+
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
 // import { clearConfigCache } from "prettier";
 
 
@@ -152,88 +164,90 @@ function Main({ width }: WithWidth): React.ReactElement {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <ThemeProvider theme={theme}>
-        <AppBar
-          position="absolute"
-          className={clsx(classes.appBar, open && classes.appBarShift)}
-        >
-          <Toolbar className={classes.toolbar}>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              className={clsx(
-                classes.menuButton,
-                open && classes.menuButtonHidden
-              )}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              className={classes.title}
-            >
-              mariner3d
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <SwipeableDrawer
-          variant={drawerVariant}
-          classes={{
-            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-          }}
-          open={open}
-          onOpen={handleDrawerOpen}
-          onClose={handleDrawerClose}
-        >
-          <div className={classes.toolbarIcon}>
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-            <ListItem
-              button
-              key="home"
-              component={Link}
-              to="/"
-              onClick={handleDrawerItemClick}
-            >
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItem>
-            <ListItem
-              button
-              key="files"
-              component={Link}
-              to="/files"
-              onClick={handleDrawerItemClick}
-            >
-              <ListItemIcon>
-                <FolderIcon />
-              </ListItemIcon>
-              <ListItemText primary="Files" />
-            </ListItem>
-          </List>
-        </SwipeableDrawer>
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container maxWidth="sm" className={classes.container}>
-            {VideoImage()}
-            <Routes>
-              <Route path="/" element={<PrintStatus />} />
-              <Route path="/files" element={<FileList />} />
-            </Routes>
-          </Container>
-        </main>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <AppBar
+            position="absolute"
+            className={clsx(classes.appBar, open && classes.appBarShift)}
+          >
+            <Toolbar className={classes.toolbar}>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                className={clsx(
+                  classes.menuButton,
+                  open && classes.menuButtonHidden
+                )}
+                size="large">
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                className={classes.title}
+              >
+                mariner3d
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <SwipeableDrawer
+            variant={drawerVariant}
+            classes={{
+              paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+            }}
+            open={open}
+            onOpen={handleDrawerOpen}
+            onClose={handleDrawerClose}
+          >
+            <div className={classes.toolbarIcon}>
+              <IconButton onClick={handleDrawerClose} size="large">
+                <ChevronLeftIcon />
+              </IconButton>
+            </div>
+            <Divider />
+            <List>
+              <ListItem
+                button
+                key="home"
+                component={Link}
+                to="/"
+                onClick={handleDrawerItemClick}
+              >
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary="Home" />
+              </ListItem>
+              <ListItem
+                button
+                key="files"
+                component={Link}
+                to="/files"
+                onClick={handleDrawerItemClick}
+              >
+                <ListItemIcon>
+                  <FolderIcon />
+                </ListItemIcon>
+                <ListItemText primary="Files" />
+              </ListItem>
+            </List>
+          </SwipeableDrawer>
+          <main className={classes.content}>
+            <div className={classes.appBarSpacer} />
+            <Container maxWidth="sm" className={classes.container}>
+              {VideoImage()}
+              <Routes>
+                <Route path="/" element={<PrintStatus />} />
+                <Route path="/files" element={<FileList />} />
+              </Routes>
+            </Container>
+          </main>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </div>
   );
 }

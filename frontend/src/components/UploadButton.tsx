@@ -1,7 +1,9 @@
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
-import PublishIcon from "@material-ui/icons/Publish";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+import { WithStyles } from '@mui/styles';
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
+import PublishIcon from "@mui/icons-material/Publish";
 import nullthrows from "nullthrows";
 import React from "react";
 import { withAPI, WithAPIProps } from "../api";
