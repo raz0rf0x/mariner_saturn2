@@ -25,6 +25,14 @@ import PrintStatus from "./PrintStatus";
 import Image from "material-ui-image";
 
 
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
+
 // FIXME checkout https://mui.com/components/use-media-query/#migrating-from-withwidth
 const withWidth = () => (WrappedComponent) => (props) => <WrappedComponent {...props} width="xs" />;
 
