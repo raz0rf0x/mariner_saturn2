@@ -1,3 +1,9 @@
+mariner3d (0.4.0) unstable; urgency=low
+
+  * Bumped to React 18
+
+ -- rob al <me@xra.co>  Sun, 16 Oct 2022 18:22:47 +0000
+ 
 mariner3d (0.3.0) unstable; urgency=low
 
   * added video server at (http_port) +1
