@@ -50,6 +50,10 @@ jobs:
           docker run --rm --privileged multiarch/qemu-user-static:register
           --reset
 
+      - uses: actions/setup-node@v3
+        name: upgrade Node
+        with:
+          node-version: 18
       - name: Install yarn packages
         run: cd frontend/ && yarn install
       - name: Build frontend assets
