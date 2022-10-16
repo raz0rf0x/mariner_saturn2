@@ -10,8 +10,8 @@ import {
   DialogContentText,
   DialogTitle,
   Typography,
-} from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React from "react";
 
 export interface AlertOptions {
@@ -43,7 +43,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
           whiteSpace="pre"
           overflow="scroll"
           border={1}
-          borderRadius={4}
+          borderRadius="4px"
           borderColor="#ededed"
           padding={1}
           bgcolor="#fafafa"

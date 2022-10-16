@@ -1,19 +1,19 @@
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Dialog, { DialogProps } from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import IconButton from "@material-ui/core/IconButton";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+import Dialog, { DialogProps } from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
+import { makeStyles } from 'tss-react/mui';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import nullthrows from "nullthrows";
 import React from "react";
 import { FileDetailsAPIResponse, withAPI, WithAPIProps } from "../api";
@@ -93,7 +93,7 @@ class FileDetails extends React.Component<FileDetailsProps, FileDetailsState> {
   }
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   dialogTitle: {
     display: "flex",
     justifyContent: "space-between",
@@ -116,7 +116,7 @@ export default function FileDetailsDialog(
     onDelete: () => void;
   } & DialogProps
 ): React.ReactElement {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const [isDeleteConfirmationDialogOpen, setDeleteConfirmationDialogOpen] =
     React.useState(false);
   const handleDeleteDialogClose = () => setDeleteConfirmationDialogOpen(false);
@@ -146,14 +146,14 @@ export default function FileDetailsDialog(
 
   return (
     <Dialog {...props}>
-      <DialogTitle className={classes.dialogTitle} disableTypography>
+      <DialogTitle className={classes.dialogTitle}>
         <Typography component="h2" variant="h6">
           {props.filename}
         </Typography>
         <IconButton
           className={classes.moreOptionsButton}
           onClick={() => setDeleteConfirmationDialogOpen(true)}
-        >
+          size="large">
           <DeleteForeverIcon />
         </IconButton>
         <Dialog

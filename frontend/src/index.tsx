@@ -2,7 +2,8 @@ import "@babel/polyfill";
 import axios from "axios";
 import nullthrows from "nullthrows";
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from 'react-dom/client';
+// import ReactDOM from "react-dom";
 import { HashRouter } from "react-router-dom";
 import { AlertServiceProvider } from "./components/AlertServiceProvider";
 import Main from "./components/Main";
@@ -14,6 +15,16 @@ const csrfToken: HTMLMetaElement = nullthrows(
 axios.defaults.headers.common["X-CSRFTOKEN"] = csrfToken.content;
 
 const wrapper = document.getElementById("container");
+wrapper ? createRoot(wrapper).render(
+  <HashRouter>
+    <AlertServiceProvider>
+      <Main />
+    </AlertServiceProvider>
+  </HashRouter>
+) : false;
+
+/*
+
 wrapper
   ? ReactDOM.render(
       <HashRouter>
@@ -24,3 +35,4 @@ wrapper
       wrapper
     )
   : false;
+*/

@@ -1,8 +1,8 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { makeStyles } from "@material-ui/core/styles";
+import CircularProgress from "@mui/material/CircularProgress";
+import { makeStyles } from 'tss-react/mui';
 import React from "react";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     background: "#5a5a5a",
     paddingTop: "calc(3 / 4 * 100%)",
@@ -32,7 +32,7 @@ export default function FilePreview({
 }: {
   src: string;
 }): React.ReactElement {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const [progressDisplay, setProgressDisplay] = React.useState("block");
 
   return (
