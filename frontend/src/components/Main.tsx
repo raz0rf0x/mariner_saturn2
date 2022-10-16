@@ -22,7 +22,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import theme from "../theme";
 import FileList from "./FileList";
 import PrintStatus from "./PrintStatus";
-import Image from "material-ui-image";
+import Image from "mui-image";
 
 
 
