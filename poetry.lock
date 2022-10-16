@@ -163,7 +163,7 @@ email = ["email-validator"]
 
 [[package]]
 name = "freezegun"
-version = "1.2.1"
+version = "1.2.2"
 description = "Let your Python tests travel through time"
 category = "dev"
 optional = false
@@ -897,7 +897,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "01664c85b0705bace3e7f5944371bcb2f7542a32d930bbf677b1facaf97b8431"
+content-hash = "ec9bb9ba04eeac279cf81c56d9d2007f41fc758a6b156dc1bfc6c9f993e3eac9"
 
 [metadata.files]
 astroid = [
@@ -1018,8 +1018,8 @@ Flask-WTF = [
     {file = "Flask_WTF-1.0.1-py3-none-any.whl", hash = "sha256:9d733658c80be551ce7d5bc13c7a7ac0d80df509be1e23827c847d9520f4359a"},
 ]
 freezegun = [
-    {file = "freezegun-1.2.1-py3-none-any.whl", hash = "sha256:15103a67dfa868ad809a8f508146e396be2995172d25f927e48ce51c0bf5cb09"},
-    {file = "freezegun-1.2.1.tar.gz", hash = "sha256:b4c64efb275e6bc68dc6e771b17ffe0ff0f90b81a2a5189043550b6519926ba4"},
+    {file = "freezegun-1.2.2-py3-none-any.whl", hash = "sha256:ea1b963b993cb9ea195adbd893a48d573fda951b0da64f60883d7e988b606c9f"},
+    {file = "freezegun-1.2.2.tar.gz", hash = "sha256:cd22d1ba06941384410cd967d8a99d5ae2442f57dfafeff2fda5de8dc5c05446"},
 ]
 green = [
     {file = "green-3.4.3.tar.gz", hash = "sha256:8865d0b77b5cb13851dd601a58ad2c82bcb52da7ca106f0538c5787f127368a6"},
