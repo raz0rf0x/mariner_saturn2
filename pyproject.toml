@@ -30,7 +30,7 @@ numpy = "^1.23.2"
 picamera2 = "^0.3.3"
 
 [tool.poetry.dev-dependencies]
-black = "22.8.0"
+black = "22.10.0"
 flake8 = "5.0.4"
 freezegun = "1.2.2"
 green = "3.4.3"
