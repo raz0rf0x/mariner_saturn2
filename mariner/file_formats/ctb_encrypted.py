@@ -244,8 +244,8 @@ class CTBEncryptedFile(SlicedModelFile):
                 raise TypeError("The file checksum does not match, malformed file.\n" + str(hash) + "\n" + str(encrypted_hash) + "\n" + str(int.from_bytes(hash, 'little')) + "\n" + str(int.from_bytes(encrypted_hash, 'little')) + "\n" + str(int.from_bytes(checksum_hash, 'little')))
 
             LayersPointer = [None] * ctb_slicer.layer_count
+	    file.seek(ctb_slicer.layer_table_offset)
             for layer_index in range(0, ctb_slicer.layer_count):
-                file.seek(ctb_slicer.layer_table_offset)
                 LayersPointer[layer_index] = CTBLayerPointer.unpack(file.read(CTBLayerPointer.get_size()))
 
             LayersDefinition = [None] * ctb_slicer.layer_count
