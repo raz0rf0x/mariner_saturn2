@@ -73,19 +73,20 @@ def print_status() -> str:
             )
 
             if print_status.current_byte == 0:
-                current_layer = 1
+                current_layer = 0
             else:
-                current_layer = (
-                    sliced_model_file.end_byte_offset_by_layer.index(
-                        print_status.current_byte
-                    )
-                    + 1
-                )
+                current_layer = 0
+#                current_layer = (
+#                    sliced_model_file.end_byte_offset_by_layer.index(
+#                        print_status.current_byte
+#                    )
+#                    + 1
+#                )
 
             progress = (
                 100.0
-                * none_throws(current_layer - 1)
-                / none_throws(sliced_model_file.layer_count)
+                * none_throws(print_status.current_byte)
+                / none_throws(print_status.total_bytes)
             )
 
             print_details = {
